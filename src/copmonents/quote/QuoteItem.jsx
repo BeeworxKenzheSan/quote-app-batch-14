@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import Button from "../UI/Button";
+import { Link } from "react-router-dom";
 
-const QuoteItem = ({ quote, author }) => {
+const QuoteItem = ({ quote, author, id, onDelete }) => {
   return (
     <Container>
       <div>
@@ -9,8 +10,11 @@ const QuoteItem = ({ quote, author }) => {
         <AuthorText>{author}</AuthorText>
       </div>
 
-      <div>
-        <Button>Edit</Button>
+      <div style={{ display: "grid", gap: "5px" }}>
+        <Button>
+          <Link to={`/update/${id}`}>Edit</Link>
+        </Button>
+        <Button onClick={() => onDelete(id)}>Delete</Button>
       </div>
     </Container>
   );

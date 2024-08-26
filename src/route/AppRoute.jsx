@@ -5,7 +5,8 @@ import {
 } from "react-router-dom";
 import Layout from "../layout/Layout";
 import QuoteList from "../copmonents/quote/QuoteList";
-import QuoteForm from "../copmonents/quote/QuoteForm";
+import { CreateQuote } from "../pages/CreateQuote";
+import { UpdateQuote } from "../pages/UpdateQuote";
 
 const AppRoute = () => {
   const router = createBrowserRouter([
@@ -26,7 +27,11 @@ const AppRoute = () => {
 
         {
           path: "/add-quote",
-          element: <QuoteForm />,
+          element: <CreateQuote />,
+        },
+        {
+          path: "/update/:id",
+          element: <UpdateQuote />,
         },
       ],
     },

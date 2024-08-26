@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import Input from "../UI/Input";
 import Button from "../UI/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import { v4 as uuidv4 } from "uuid";
 
-const QuoteForm = () => {
+const QuoteForm = ({ onSubmit, quote }) => {
   const [authorText, setAuthorText] = useState("");
   const [quoteText, setQuoteText] = useState("");
 
@@ -15,7 +15,15 @@ const QuoteForm = () => {
       author: authorText,
       quote: quoteText,
     };
+    onSubmit(newQuote);
   };
+
+  useEffect(() => {
+    if (quote) {
+      setAuthorText(quote.author);
+      setQuoteText(quote.quote);
+    }
+  }, [quote]);
 
   return (
     <Container onSubmit={submitHandler}>

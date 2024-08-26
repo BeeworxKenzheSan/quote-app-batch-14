@@ -23,19 +23,21 @@ export const getQuotes = () => {
 
 // Серверге жаны цитата кошуучу функция
 //                          quote = {author:'Автор',quote: 'Цитата'}
-export const createQuote = (quote) => {
+export const createQuote = (quote, navigate) => {
   return async (dispatch) => {
     try {
       dispatch({ type: QUOTES_TYPES.IS_LOADING });
       const response = await fetch(API_URL, {
         method: "POST",
-        headers: { "Content-type": "appliction/json" },
+        headers: { "Content-type": "application/json" },
         body: JSON.stringify(quote),
       });
       if (response.ok === false) {
         const result = await response.json();
         throw new Error(result.message);
       }
+      dispatch({ type: "stop_loading" });
+      navigate(-1);
     } catch (error) {
       dispatch({ type: QUOTES_TYPES.ERROR, payload: error.message });
     }
@@ -44,19 +46,22 @@ export const createQuote = (quote) => {
 
 // бул ошол жазууну озгортуучу
 //             quote = {author:'Автор',quote: 'Цитата',id: 1}
-export const updateQuote = (quote) => {
+export const updateQuote = (quote, navigate) => {
+  const { id, ...rest } = quote;
+  console.log(quote);
   return async (dispatch) => {
     try {
       dispatch({ type: QUOTES_TYPES.IS_LOADING });
-      const response = await fetch(`${API_URL}/${quote.id}`, {
+      const response = await fetch(`${API_URL}/${id}`, {
         method: "PATCH",
-        headers: { "Content-type": "appliction/json" },
-        body: JSON.stringify(quote),
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(rest),
       });
       if (response.ok === false) {
         const result = await response.json();
         throw new Error(result.message);
       }
+      navigate(-1);
     } catch (error) {
       dispatch({ type: QUOTES_TYPES.ERROR, payload: error.message });
     }
@@ -92,6 +97,7 @@ export const deleteQuote = (id) => {
         throw new Error(result.message);
       }
       //   ???
+      dispatch(getQuotes());
     } catch (error) {
       dispatch({ type: QUOTES_TYPES.ERROR, payload: error.message });
     }
