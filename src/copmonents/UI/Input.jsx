@@ -1,10 +1,25 @@
 import styled from "styled-components";
 
-const Input = ({ label, value, onChange }) => {
+const Input = ({
+  label,
+  value,
+  onChange,
+  placeholder,
+  errorMessage,
+  ...rest
+}) => {
   return (
     <div>
       <StyledLabel htmlFor={label}>{label}</StyledLabel>
-      <StyledInput type="text" value={value} onChange={onChange} id={label} />
+      <StyledInput
+        placeholder={placeholder}
+        type="text"
+        value={value}
+        onChange={onChange}
+        id={label}
+        {...rest}
+      />
+      {errorMessage && <StyledErrorMessage>{errorMessage}</StyledErrorMessage>}
     </div>
   );
 };
@@ -17,7 +32,6 @@ const StyledInput = styled.input`
   width: 100%;
   padding: 7px;
   font-size: 20px;
-
   outline-color: #008080;
 `;
 
@@ -26,4 +40,10 @@ const StyledLabel = styled.label`
   font-size: 20px;
   margin-bottom: 10px;
   display: block;
+  margin-top: 8px;
+`;
+
+const StyledErrorMessage = styled.div`
+  color: #f04438;
+  font-size: 14px;
 `;
