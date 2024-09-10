@@ -1,17 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import QuoteForm from "../copmonents/quote/QuoteForm";
-import { createQuote } from "../store/quoteReducer/quoteActions";
 import { LoadingSpinner } from "../copmonents/UI/Spinner";
 import { useNavigate } from "react-router-dom";
+import { createQuote } from "../api/quotesService";
 
 export const CreateQuote = () => {
-  const { isLoading, error } = useSelector((state) => state.quote);
+  const { isLoading, error } = useSelector((state) => state.quotes);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    // QuoteForm {author: '',quote:''}
     dispatch(createQuote(data, navigate));
+    navigate(-1);
   };
   return (
     <div>

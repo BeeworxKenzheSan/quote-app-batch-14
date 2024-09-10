@@ -3,20 +3,16 @@ import QuoteItem from "./QuoteItem";
 import { LoadingSpinner } from "../UI/Spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { deleteQuote, getQuotes } from "../../store/quoteReducer/quoteActions";
 import Modal from "../UI/Modal";
 import { QuoteConfirmDelete } from "./QuoteConfirmDelete";
+import { deleteQuote, getQuotes } from "../../api/quotesService";
 
 const QuoteList = () => {
   const [deletingItem, setDeletingItem] = useState(null);
   const [open, setOpen] = useState(false);
+  const { quotes, isLoading, error } = useSelector((state) => state.quotes);
 
-  const { isLoading, error, quotes } = useSelector((state) => state.quote);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getQuotes());
-  }, [dispatch]);
 
   function getDeletingItem(id) {
     setOpen(true);
@@ -30,6 +26,10 @@ const QuoteList = () => {
     dispatch(deleteQuote(deletingItem));
     setOpen(false);
   };
+
+  useEffect(() => {
+    dispatch(getQuotes());
+  }, [dispatch]);
 
   return (
     <QuoteContainer>

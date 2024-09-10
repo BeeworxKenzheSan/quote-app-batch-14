@@ -1,10 +1,12 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
-import { quoteReducer } from "./quoteReducer/quoteReducer";
-import { thunk } from "redux-thunk";
+import { configureStore } from "@reduxjs/toolkit";
+import userReducer from "./userSlice/index";
+import { quoteSlice } from "./quoteSlice";
 
-const rootReducer = combineReducers({
-  quote: quoteReducer,
-  // task: taskReducer
+const store = configureStore({
+  reducer: {
+    user: userReducer,
+    [quoteSlice.name]: quoteSlice.reducer,
+  },
 });
 
-export const store = createStore(rootReducer, applyMiddleware(thunk));
+export default store;

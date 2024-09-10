@@ -11,10 +11,10 @@ import AuthLayout from "../layout/AuthLayout";
 import { SignInPage } from "../pages/auth/SignInPage";
 import { SignUpPage } from "../pages/auth/SignUpPage";
 import ProtectedRoute from "./ProtectedRouter";
+import { useSelector } from "react-redux";
 
 const AppRoute = () => {
-  const isAuth = false;
-  const token = "";
+  const { isAuth, token } = useSelector((state) => state.user);
 
   const router = createBrowserRouter([
     {

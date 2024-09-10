@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import PasswordInput from "../UI/PasswordInput";
 import { useState } from "react";
 
-export const SignUp = () => {
+export const SignUp = ({ onSubmitFunction }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -45,7 +45,7 @@ export const SignUp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("Form submitted:", { name, email, password });
+      onSubmitFunction({ name, email, password });
     }
   };
 

@@ -1,4 +1,4 @@
-export const API_URL = "https://95e351de3e631700.mokky.dev/quote";
+export const API_URL = "https://49e4a95b69dba3b4.mokky.dev";
 
 export const QUOTES_TYPES = {
   GET: "GET",

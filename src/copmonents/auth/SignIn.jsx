@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import PasswordInput from "../UI/PasswordInput";
 import { useState } from "react";
 
-export const SignIn = () => {
+export const SignIn = ({ onJonot }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: "", password: "" });
@@ -40,6 +40,7 @@ export const SignIn = () => {
       setPassword("");
       setErrors({ email: "", password: "" });
     }
+    onJonot({ email, password });
   };
   return (
     <Container>

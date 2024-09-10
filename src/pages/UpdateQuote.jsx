@@ -2,11 +2,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import QuoteForm from "../copmonents/quote/QuoteForm";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getQuoteById, updateQuote } from "../store/quoteReducer/quoteActions";
+import { getQuoteById, updateQuote } from "../api/quotesService";
 
 export const UpdateQuote = () => {
-  //
-  const { quote } = useSelector((state) => state.quote);
+  const { quote } = useSelector((state) => state.quotes);
   const param = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -16,7 +15,6 @@ export const UpdateQuote = () => {
 
   const onSubmit = (data) => {
     const updatedData = { ...data, id: param.id };
-    // console.log(data);
     dispatch(updateQuote(updatedData, navigate));
   };
   return (
