@@ -1,23 +1,17 @@
+import { useNavigate } from "react-router-dom";
 import { SignUp } from "../../copmonents/auth/SignUp";
 import { API_URL } from "../../utils/constants";
+import axios from "axios";
 
 export const SignUpPage = () => {
+  const navigate = useNavigate();
   const onSubmit = async (data) => {
     try {
-      const response = await fetch(`${API_URL}/register`, {
-        method: "POST",
-        headers: {
-          "Content-type": "Application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      const result = response.json();
-      console.log(result);
+      await axios.post(`${API_URL}/register`, data);
+      navigate("/signIn");
     } catch (error) {
-      console.log(error);
+      console.log("ERROR:", error);
     }
-    console.log("FAA:", data);
   };
   return <SignUp onSubmitFunction={onSubmit} />;
 };

@@ -1,11 +1,21 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import Button from "./UI/Button";
+import { logout } from "../store/userSlice";
 
 const Header = () => {
+  const dispatch = useDispatch();
+
+  const onLogout = () => {
+    localStorage.removeItem("AUTH");
+    dispatch(logout());
+  };
   return (
     <StyledHeader>
       <NavBar>
         <Title>Create Quotes</Title>
+        <Button onClick={onLogout}>LOGOUT</Button>
         <UlList>
           <li>
             <NavLink

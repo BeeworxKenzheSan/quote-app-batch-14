@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { API_URL } from "../../utils/constants";
+import { axiosInstance } from "../../config/axiosIntercepter";
 
 const initialState = {
   isLoading: false,
@@ -81,44 +81,24 @@ export const quoteSlice = createSlice({
 // Получаем цитаты
 export const getQuotes = createAsyncThunk(
   "quotes/getQuotes",
-  async (_, { getState }) => {
-    const token = getState().user.token;
-
-    const response = await fetch(`${API_URL}/quotes`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      const message = await response.json();
-      throw new Error(message.message);
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(`/quotes`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
-
-    const result = await response.json();
-    return result;
   }
 );
 
 // Создаем новую цитату
 export const createQuote = createAsyncThunk(
   "quotes/createQuote",
-  async (quote, { getState }) => {
-    const token = getState().user.token;
-
-    const response = await fetch(`${API_URL}/quotes`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(quote),
-    });
-
-    if (!response.ok) {
-      const result = await response.json();
-      throw new Error(result.message);
+  async (quote, thunkApi) => {
+    try {
+      await axiosInstance.post(`/quotes`, quote);
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
     }
   }
 );
@@ -126,22 +106,12 @@ export const createQuote = createAsyncThunk(
 // Обновляем цитату
 export const updateQuote = createAsyncThunk(
   "quotes/updateQuote",
-  async (quote, { getState }) => {
+  async (quote, { rejectWithValue }) => {
     const { id, ...rest } = quote;
-    const token = getState().user.token;
-
-    const response = await fetch(`${API_URL}/quotes/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(rest),
-    });
-
-    if (!response.ok) {
-      const result = await response.json();
-      throw new Error(result.message);
+    try {
+      await axiosInstance.patch(`/quotes/${id}`, rest);
+    } catch (error) {
+      return rejectWithValue(error.status);
     }
   }
 );
@@ -149,44 +119,25 @@ export const updateQuote = createAsyncThunk(
 // Получаем цитату по ID
 export const getQuoteById = createAsyncThunk(
   "quotes/getQuoteById",
-  async (id, { getState }) => {
-    const token = getState().user.token;
-    const response = await fetch(`${API_URL}/quotes/${id}`, {
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (!response.ok) {
-      const result = await response.json();
-      throw new Error(result.message);
+  async (id, { rejectWithValue }) => {
+    try {
+      const res = await axiosInstance.get(`/quotes/${id}`);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
-
-    const result = await response.json();
-    return result;
   }
 );
 
 // Удаляем цитату
 export const deleteQuote = createAsyncThunk(
   "quotes/deleteQuote",
-  async (id, { getState }) => {
-    const token = getState().user.token;
-
-    const response = await fetch(`${API_URL}/quotes/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (!response.ok) {
-      const result = await response.json();
-      throw new Error(result.message);
+  async (id, { rejectWithValue, dispatch }) => {
+    try {
+      await axiosInstance.delete(`/quotes/${id}`);
+      dispatch(getQuotes());
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
-
-    return id;
   }
 );

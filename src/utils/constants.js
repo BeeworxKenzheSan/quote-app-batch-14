@@ -1,4 +1,4 @@
-export const API_URL = "https://49e4a95b69dba3b4.mokky.dev";
+export const API_URL = import.meta.env.VITE_API_URL;
 
 export const QUOTES_TYPES = {
   GET: "GET",

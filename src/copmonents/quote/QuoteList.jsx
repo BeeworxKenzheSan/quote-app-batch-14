@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Modal from "../UI/Modal";
 import { QuoteConfirmDelete } from "./QuoteConfirmDelete";
-import { deleteQuote, getQuotes } from "../../api/quotesService";
+import { deleteQuote, getQuotes } from "../../store/quoteSlice";
+// import { deleteQuote, getQuotes } from "../../api/quotesService";
 
 const QuoteList = () => {
   const [deletingItem, setDeletingItem] = useState(null);

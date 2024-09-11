@@ -2,7 +2,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import QuoteForm from "../copmonents/quote/QuoteForm";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getQuoteById, updateQuote } from "../api/quotesService";
+import { getQuoteById, updateQuote } from "../store/quoteSlice";
+// import { getQuoteById, updateQuote } from "../api/quotesService";
 
 export const UpdateQuote = () => {
   const { quote } = useSelector((state) => state.quotes);

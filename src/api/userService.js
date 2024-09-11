@@ -1,26 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { API_URL } from "../utils/constants";
+import axios from "axios";
 
 export const signIn = createAsyncThunk(
   "auth/signin",
-  async (data, { rejectWithValue }) => {
+  async (userInfo, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${API_URL}/auth`, {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      const response = await axios.post(`${API_URL}/auth`, userInfo);
 
-      if (!response.ok) {
-        const result = await response.json();
-        throw new Error(result.message);
-      }
-
-      const result = await response.json();
-      localStorage.setItem("AUTH", JSON.stringify(result));
-      return result;
+      localStorage.setItem("AUTH", JSON.stringify(response.data));
+      return response.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      console.log(error);
+      return rejectWithValue(error);
     }
   }
 );

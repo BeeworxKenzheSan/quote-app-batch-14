@@ -2,7 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import QuoteForm from "../copmonents/quote/QuoteForm";
 import { LoadingSpinner } from "../copmonents/UI/Spinner";
 import { useNavigate } from "react-router-dom";
-import { createQuote } from "../api/quotesService";
+import { createQuote } from "../store/quoteSlice";
+// import { createQuote } from "../api/quotesService";
 
 export const CreateQuote = () => {
   const { isLoading, error } = useSelector((state) => state.quotes);

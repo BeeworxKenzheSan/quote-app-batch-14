@@ -10,6 +10,19 @@ const initialState = {
 const userSlice = createSlice({
   name: "user",
   initialState,
+  reducers: {
+    login: (state, { payload }) => {
+      state.token = payload.token;
+      state.isAuth = true;
+      state.data = payload.data;
+    },
+    // Чыгуу
+    logout: (state) => {
+      state.isAuth = false;
+      state.token = null;
+      state.data = {};
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(signIn.fulfilled, (state, action) => {
@@ -25,5 +38,5 @@ const userSlice = createSlice({
       });
   },
 });
-
+export const { login, logout } = userSlice.actions;
 export default userSlice.reducer;
