@@ -8,7 +8,6 @@ export const signIn = createAsyncThunk(
     try {
       const response = await axios.post(`${API_URL}/auth`, userInfo);
 
-      localStorage.setItem("AUTH", JSON.stringify(response.data));
       return response.data;
     } catch (error) {
       console.log(error);
