@@ -1,13 +1,14 @@
 import axios from "axios";
 import { API_URL } from "../utils/constants";
+import { Store } from "@reduxjs/toolkit";
 
 export const axiosInstance = axios.create({
   baseURL: API_URL,
 });
 
-let store;
+let store: Store;
 
-export const injectStore = (params) => {
+export const injectStore = (params: Store) => {
   return (store = params);
 };
 

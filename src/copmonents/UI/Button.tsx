@@ -1,8 +1,15 @@
+import React from "react";
 import styled from "styled-components";
 
-const Button = ({ children, type, ...props }) => {
+type ButtonTypes = {
+  children: React.ReactNode,
+  type?: 'submit' | 'reset' | 'button' | undefined;
+  onClick: () => void
+}
+
+const Button = ({ children, type = "button", onClick, ...props }: ButtonTypes) => {
   return (
-    <StyledButton type={type} {...props}>
+    <StyledButton type={type} onClick={onClick} {...props}>
       {children}
     </StyledButton>
   );

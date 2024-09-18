@@ -1,6 +1,14 @@
 import { useState } from "react";
 import styled from "styled-components";
 
+type PasswordInputTypes = {
+  label?: string,
+  value: string,
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+  placeholder?: string,
+  errorMessage?: string | null
+}
+
 const PasswordInput = ({
   label,
   value,
@@ -8,7 +16,7 @@ const PasswordInput = ({
   placeholder,
   errorMessage,
   ...rest
-}) => {
+}: PasswordInputTypes) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {

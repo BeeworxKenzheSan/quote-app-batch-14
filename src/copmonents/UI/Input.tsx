@@ -1,5 +1,13 @@
 import styled from "styled-components";
 
+type InputTypes = {
+  label?: string,
+  value: string,
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+  placeholder?: string,
+  errorMessage: string
+}
+
 const Input = ({
   label,
   value,
@@ -7,7 +15,7 @@ const Input = ({
   placeholder,
   errorMessage,
   ...rest
-}) => {
+}: InputTypes) => {
   return (
     <div>
       <StyledLabel htmlFor={label}>{label}</StyledLabel>

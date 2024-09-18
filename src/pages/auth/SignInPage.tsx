@@ -1,9 +1,10 @@
-import { useDispatch } from "react-redux";
-import { SignIn } from "../../copmonents/auth/SignIn";
 import { signIn } from "../../api/userService";
+import { SignIn } from "../../copmonents/auth/SignIn";
+import { useAppDispatch } from "../../hooks";
+
 
 export const SignInPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const onSubmit = (data) => {
     dispatch(signIn(data));
   };

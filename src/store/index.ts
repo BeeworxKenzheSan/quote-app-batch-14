@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import userReducer from "./userSlice/index";
 import { quoteSlice } from "./quoteSlice";
 import storage from "redux-persist/lib/storage"; // для использования localStorage
+import userReducer from "./userSlice/index";
 import { persistReducer, persistStore } from "redux-persist";
 
 const persistConfig = {
